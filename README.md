@@ -2,46 +2,49 @@
 
 Project giải bài toán 8 quân xe (8 Rooks Problem) sử dụng các thuật toán AI.
 
-## Bài toán
+## Mục tiêu của game đặt 8 quân xe AI
 
-Đặt 8 quân xe trên bàn cờ 8x8 sao cho không quân nào có thể ăn được quân nào khác.
-Quân xe có thể di chuyển theo hàng ngang và hàng dọc.
+Mục tiêu của game “Đặt 8 quân Xe AI” là xây dựng một chương trình có khả năng giải bài toán đặt 8 quân Xe (Rook) trên bàn cờ 8x8 sao cho không có hai quân Xe nào có thể tấn công lẫn nhau.
+Đồng thời, trò chơi cho phép người dùng quan sát trực quan quá trình tìm kiếm lời giải của các thuật toán trí tuệ nhân tạo (AI) khác nhau.
+
+Cụ thể, hệ thống hướng đến các mục tiêu sau:
+
+ Áp dụng và so sánh các thuật toán tìm kiếm AI như:
+
+Tìm kiếm theo chiều rộng (BFS)
+
+Tìm kiếm theo chiều sâu (DFS)
+
+Tìm kiếm chi phí đồng nhất (UCS)
+
+Tìm kiếm A*
+
+Tìm kiếm tham lam (Greedy)
+
+Tìm kiếm theo độ sâu lặp (IDS)
+
+ Cung cấp giao diện trực quan giúp người dùng:
+
+Lựa chọn thuật toán cần chạy.
+
+Quan sát quá trình đặt từng quân Xe lên bàn cờ.
+
+Hiển thị các thông số thống kê như thời gian thực thi, số nút mở rộng, kích thước hàng đợi tối đa, v.v.
+
+ Thể hiện khả năng ứng dụng trí tuệ nhân tạo trong giải quyết bài toán tổ hợp, qua đó giúp người học hiểu rõ hơn về:
+
+Cách hoạt động của từng thuật toán tìm kiếm.
+
+Hiệu năng và độ phức tạp của từng phương pháp.
+
+ Mục tiêu mở rộng (nếu có):
+
+Cho phép người chơi tương tác bằng cách tự đặt quân và nhờ AI hoàn tất lời giải.
+
+Nâng cấp hệ thống để xử lý các bàn cờ kích thước lớn hơn (n-queens hoặc n-rooks).
+
+So sánh trực quan tốc độ và chất lượng lời giải giữa các thuật toán.
 
 ## Cài đặt
 
 Project sử dụng Python 3 với thư viện tkinter (có sẵn trong Python).
-
-## Tính năng
-
-- Giao diện trực quan với bàn cờ 8x8 responsive
-- 5 nhóm thuật toán AI:
-  - **Uninformed Search**: BFS, DFS, UCS, IDS
-  - **Informed Search**: Greedy, A*, IDA*
-  - **Local Search**: Hill Climbing, Simulated Annealing, Genetic Algorithm
-  - **Complex Environment**: Minimax, Alpha-Beta Pruning
-  - **CSP**: Backtracking, Forward Checking, AC-3
-- Hiển thị quá trình giải theo thời gian thực
-- Thống kê chi tiết: thuật toán, thời gian, số bước
-- Bàn cờ tự động scale khi resize window
-
-## Cách sử dụng
-
-1. Chọn thuật toán từ panel bên phải (hiện tại chỉ BFS khả dụng)
-2. Nhấn nút **START** để bắt đầu giải bài toán
-3. Quan sát quá trình đặt quân xe trên bàn cờ
-4. Xem thống kê trong phần Statistics
-5. Nhấn **RESET** để làm mới bàn cờ
-
-## Mở rộng
-
-Để thêm thuật toán mới:
-
-1. Tạo file mới trong thư mục `algo/` (ví dụ: `dfs.py`)
-2. Implement class solver với method `solve(callback)` trả về `(solution, steps, time_taken)`
-3. Cập nhật `main.py` để import và sử dụng thuật toán mới
-
-## Ghi chú
-
-- Hiện tại chỉ thuật toán BFS được implement
-- Các thuật toán khác sẽ được thêm vào sau
-- Gửi code thuật toán của bạn để tích hợp vào project
