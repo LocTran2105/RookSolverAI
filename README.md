@@ -1,17 +1,6 @@
-# 8 Rooks Solver - AI Algorithms
+# 8 Rooks Solver AI
 
 Project giải bài toán 8 quân xe (8 Rooks Problem) sử dụng các thuật toán AI.
-
-## Cấu trúc project
-
-\`\`\`
-.
-├── algo/
-│   ├── __init__.py
-│   └── bfs.py          # Thuật toán BFS
-├── main.py             # Giao diện chính
-└── README.md
-\`\`\`
 
 ## Bài toán
 
@@ -22,22 +11,18 @@ Quân xe có thể di chuyển theo hàng ngang và hàng dọc.
 
 Project sử dụng Python 3 với thư viện tkinter (có sẵn trong Python).
 
-\`\`\`bash
-python main.py
-\`\`\`
-
 ## Tính năng
 
-- ✅ Giao diện trực quan với bàn cờ 8x8 responsive
-- ✅ 5 nhóm thuật toán AI:
+- Giao diện trực quan với bàn cờ 8x8 responsive
+- 5 nhóm thuật toán AI:
   - **Uninformed Search**: BFS, DFS, UCS, IDS
   - **Informed Search**: Greedy, A*, IDA*
   - **Local Search**: Hill Climbing, Simulated Annealing, Genetic Algorithm
   - **Complex Environment**: Minimax, Alpha-Beta Pruning
   - **CSP**: Backtracking, Forward Checking, AC-3
-- ✅ Hiển thị quá trình giải theo thời gian thực
-- ✅ Thống kê chi tiết: thuật toán, thời gian, số bước
-- ✅ Bàn cờ tự động scale khi resize window
+- Hiển thị quá trình giải theo thời gian thực
+- Thống kê chi tiết: thuật toán, thời gian, số bước
+- Bàn cờ tự động scale khi resize window
 
 ## Cách sử dụng
 
@@ -50,6 +35,7 @@ python main.py
 ## Mở rộng
 
 Để thêm thuật toán mới:
+
 1. Tạo file mới trong thư mục `algo/` (ví dụ: `dfs.py`)
 2. Implement class solver với method `solve(callback)` trả về `(solution, steps, time_taken)`
 3. Cập nhật `main.py` để import và sử dụng thuật toán mới
