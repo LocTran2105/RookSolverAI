@@ -9,7 +9,7 @@ Mục tiêu của game “Đặt 8 quân Xe AI” là xây dựng một chương
 
 Cụ thể, hệ thống hướng đến các mục tiêu sau:
 
- Áp dụng và so sánh các thuật toán tìm kiếm AI như:
+### Áp dụng và so sánh các thuật toán tìm kiếm AI như:
 
 Tìm kiếm theo chiều rộng (BFS)
 
@@ -23,7 +23,7 @@ Tìm kiếm tham lam (Greedy)
 
 Tìm kiếm theo độ sâu lặp (IDS)
 
- Cung cấp giao diện trực quan giúp người dùng:
+### Cung cấp giao diện trực quan giúp người dùng:
 
 Lựa chọn thuật toán cần chạy.
 
@@ -31,7 +31,7 @@ Quan sát quá trình đặt từng quân Xe lên bàn cờ.
 
 Hiển thị các thông số thống kê như thời gian thực thi, số nút mở rộng, kích thước hàng đợi tối đa, v.v.
 
- Thể hiện khả năng ứng dụng trí tuệ nhân tạo trong giải quyết bài toán tổ hợp, qua đó giúp người học hiểu rõ hơn về:
+### Thể hiện khả năng ứng dụng trí tuệ nhân tạo trong giải quyết bài toán tổ hợp, qua đó giúp người học hiểu rõ hơn về:
 
 Cách hoạt động của từng thuật toán tìm kiếm.
 
