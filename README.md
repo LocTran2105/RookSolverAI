@@ -1,344 +1,559 @@
-# RookSolverAI - Đặt 8 Quân Xe Bằng Trí Tuệ Nhân Tạo
+# RookSolverAI - Đặt 8 quân xe bằng thuật toán AI
+
+## Thông tin đồ án
+
+| Thông tin               | Chi tiết                 |
+| ----------------------- | ------------------------ |
+| **Môn học**             | Trí tuệ nhân tạo         |
+| **Giảng viên**          | TS. Phan Thị Huyền Trang |
+| **Lớp học phần**        | 251ARIN330585_05CLC      |
+| **Sinh viên thực hiện** | Trần Hữu Lộc             |
+| **Mã số sinh viên**     | 23110123                 |
+
+---
 
 ## 1. Giới thiệu
 
-RookSolverAI là một chương trình mô phỏng việc giải bài toán đặt 8 quân Xe (8 Rooks Problem) trên bàn cờ 8x8 bằng nhiều thuật toán trí tuệ nhân tạo (AI Search Algorithms).
+### 1.1. Giới thiệu về bài toán 8 quân Xe
 
-**Mục tiêu:**  
-Đặt 8 quân Xe lên bàn cờ sao cho không có hai quân nào tấn công nhau, tức là không có hai Xe nào cùng hàng hoặc cùng cột.
+Bài toán 8 quân Xe là một bài toán kinh điển trong lĩnh vực trí tuệ nhân tạo và khoa học máy tính. Mục tiêu của bài toán là đặt 8 quân Xe lên bàn cờ 8x8 sao cho không có hai quân nào tấn công nhau.
 
-Chương trình cho phép lựa chọn thuật toán để giải, hiển thị quá trình tìm kiếm và các thông số như: thời gian chạy, số nút mở rộng, độ sâu và trạng thái bàn cờ cuối cùng.
+**Quy tắc cơ bản:**
+
+- Quân Xe trong cờ vua có thể di chuyển theo chiều ngang hoặc chiều dọc không giới hạn số ô
+- Hai quân Xe được coi là tấn công nhau nếu chúng nằm trên cùng một hàng hoặc cùng một cột
+- Lời giải hợp lệ là cấu hình mà 8 quân Xe được đặt trên bàn cờ mà không có hai quân nào cùng hàng hoặc cùng cột
+
+Bài toán này là một dạng đặc biệt của bài toán thỏa mãn ràng buộc (Constraint Satisfaction Problem - CSP), thường được sử dụng để minh họa và so sánh hiệu quả của các thuật toán tìm kiếm trong AI.
+
+### 1.2. Giới thiệu về ứng dụng RookSolverAI
+
+RookSolverAI là một chương trình mô phỏng trực quan việc giải bài toán đặt 8 quân Xe bằng nhiều thuật toán trí tuệ nhân tạo khác nhau. Chương trình được phát triển nhằm mục đích:
+
+- Minh họa cách hoạt động của các thuật toán AI Search
+- So sánh hiệu suất giữa các thuật toán
+- Hỗ trợ học tập và nghiên cứu về trí tuệ nhân tạo
+
+### 1.3. Giao diện ứng dụng
+
+Giao diện của RookSolverAI được thiết kế đơn giản, trực quan với các thành phần chính:
+
+**Các thành phần chính:**
+
+- **Bàn cờ 8x8:** Hiển thị trạng thái hiện tại của bàn cờ và vị trí các quân Xe
+- **Bảng chọn thuật toán:** Cho phép người dùng lựa chọn thuật toán muốn sử dụng
+- **Nút điều khiển:** Bao gồm các nút Start, Reset
+- **Bảng thống kê:** Hiển thị các thông số như thời gian chạy, số nút mở rộng, độ sâu tìm kiếm
+- **Vùng trực quan hóa:** Hiển thị quá trình tìm kiếm dưới dạng animation
+
+### 1.4. Các chức năng chính
+
+**1. Lựa chọn thuật toán:**
+
+- Người dùng có thể chọn từ 15+ thuật toán AI khác nhau
+- Phân loại theo nhóm: Uninformed Search, Informed Search, Local Search, CSP, Adversarial Search
+
+**2. Điều khiển quá trình tìm kiếm:**
+
+- **Start:** Bắt đầu chạy thuật toán đã chọn
+- **Reset:** Đặt lại bàn cờ về trạng thái ban đầu
+
+**3. Trực quan hóa:**
+
+- Hiển thị animation quá trình đặt quân Xe
+- Highlight các ô đang được xem xét
+
+**4. Thống kê và đánh giá:**
+
+- Thời gian thực thi (ms)
+- Số lượng nút được mở rộng
+- Trạng thái kết quả (thành công/thất bại)
 
 ---
 
-## 2. Nhóm thuật toán Tìm kiếm Mù (Uninformed Search)
+## 2. Nội dung
 
-### Tổng quan
+### 2.1. Nhóm thuật toán Tìm kiếm Không có Thông tin (Uninformed Search)
 
-Các thuật toán tìm kiếm mù không sử dụng thông tin bổ sung về bài toán ngoài các trạng thái hợp lệ và mục tiêu. Chúng tìm kiếm một cách toàn diện nhưng không có định hướng.
+Các thuật toán tìm kiếm không có thông tin (còn gọi là tìm kiếm mù) không sử dụng bất kỳ thông tin bổ sung nào về bài toán ngoài định nghĩa về trạng thái hợp lệ và trạng thái đích. Chúng tìm kiếm một cách có hệ thống nhưng không có định hướng cụ thể.
 
-### 2.1 BFS (Breadth-First Search)
+#### 2.1.1. BFS (Breadth-First Search)
 
-**Mô tả:** Duyệt theo chiều rộng, lần lượt đặt Xe vào từng hàng, thử tất cả các khả năng ở mỗi tầng trước khi sang tầng sâu hơn.
+**Mô tả:**  
+BFS duyệt không gian tìm kiếm theo chiều rộng, lần lượt đặt Xe vào từng hàng và thử tất cả các khả năng ở mỗi tầng trước khi chuyển sang tầng sâu hơn.
 
 <p align="center">
   <img src="gif/bfs.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
-</p>  
-
-**Ưu điểm:** Luôn tìm được nghiệm tối ưu (nếu có) với số bước ít nhất.  
-**Nhược điểm:** Tốn rất nhiều bộ nhớ do phải lưu toàn bộ trạng thái cùng mức.
-
-**Áp dụng:** Trong bài toán 8 Xe, BFS lần lượt đặt từng Xe vào mỗi hàng và kiểm tra xem có xung đột hay không. Khi đủ 8 Xe, trạng thái được xem là lời giải.
-
----
-
-### 2.2 DFS (Depth-First Search)
-
-**Mô tả:** Duyệt theo chiều sâu, đặt Xe vào hàng đầu tiên và đi sâu xuống các hàng tiếp theo. Nếu phát hiện xung đột thì quay lui.
-
-<p align="center">
-  <img src="gif/dfs.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Tiết kiệm bộ nhớ, dễ cài đặt.  
-**Nhược điểm:** Có thể đi sai hướng và mắc kẹt trong nhánh không có nghiệm.
+**Cơ chế hoạt động:**
 
-**Áp dụng:** DFS hữu ích khi cần tìm nhanh một lời giải mà không quan trọng tối ưu, nhưng không đảm bảo tìm được nghiệm tốt nhất.
+1. Bắt đầu với bàn cờ trống (trạng thái ban đầu)
+2. Đặt Xe vào hàng đầu tiên, thử tất cả 8 cột
+3. Với mỗi vị trí hợp lệ, tiếp tục đặt Xe vào hàng tiếp theo
+4. Mở rộng tất cả trạng thái cùng mức trước khi sang mức sâu hơn
+5. Dừng khi tìm được cấu hình có đủ 8 Xe không xung đột
+
+**Ưu điểm:**
+
+- Đảm bảo tìm được nghiệm tối ưu với số bước ít nhất
+- Hoàn thiện: luôn tìm được nghiệm nếu có
+
+**Nhược điểm:**
+
+- Tiêu tốn rất nhiều bộ nhớ do phải lưu toàn bộ trạng thái cùng mức
+- Tốc độ chậm khi không gian tìm kiếm lớn
+
+**Độ phức tạp:**
+
+- Thời gian: O(b^d) với b là branching factor, d là độ sâu
+- Không gian: O(b^d)
 
 ---
 
-### 2.3 DLS (Depth-Limited Search)
+#### 2.1.2. DFS (Depth-First Search)
 
-**Mô tả:** Giống DFS nhưng có giới hạn độ sâu.
+**Mô tả:**  
+DFS duyệt không gian tìm kiếm theo chiều sâu, đặt Xe vào hàng đầu tiên và đi sâu xuống các hàng tiếp theo cho đến khi gặp xung đột hoặc tìm được nghiệm, sau đó quay lui.
 
 <p align="center">
-  <img src="gif/dls.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/dfs.gif" alt="DFS demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Tránh việc đi sâu vô hạn trong không gian tìm kiếm.  
-**Nhược điểm:** Nếu giới hạn độ sâu nhỏ hơn nghiệm, thuật toán sẽ không tìm thấy lời giải.
+**Cơ chế hoạt động:**
 
-**Áp dụng:** DLS thích hợp khi biết trước giới hạn số Xe cần đặt.
+1. Bắt đầu đặt Xe vào cột đầu tiên của hàng đầu tiên
+2. Tiếp tục đặt Xe vào hàng tiếp theo theo chiều sâu
+3. Nếu gặp xung đột, quay lui và thử cột khác
+4. Lặp lại cho đến khi tìm được nghiệm hoặc hết khả năng
+
+**Ưu điểm:**
+
+- Tiết kiệm bộ nhớ (chỉ lưu đường đi hiện tại)
+- Dễ cài đặt bằng đệ quy
+- Nhanh chóng tìm được một nghiệm (không nhất thiết tối ưu)
+
+**Nhược điểm:**
+
+- Không đảm bảo nghiệm tối ưu
+- Có thể đi vào nhánh sai và mất thời gian
+- Có thể rơi vào vòng lặp vô hạn nếu không kiểm soát
+
+**Độ phức tạp:**
+
+- Thời gian: O(b^m) với m là độ sâu tối đa
+- Không gian: O(bm)
 
 ---
 
-### 2.4 IDS (Iterative Deepening Search)
+#### 2.1.3. DLS (Depth-Limited Search)
 
-**Mô tả:** Kết hợp BFS và DFS, bằng cách tăng dần giới hạn độ sâu trong mỗi vòng lặp.
+**Mô tả:**  
+DLS là phiên bản cải tiến của DFS với giới hạn độ sâu tìm kiếm. Thuật toán sẽ dừng lại khi đạt đến độ sâu giới hạn đã định trước.
 
 <p align="center">
-  <img src="gif/ids.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/dls.gif" alt="DLS demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Đảm bảo tìm được nghiệm tối ưu mà không tốn nhiều bộ nhớ như BFS.  
-**Nhược điểm:** Phải duyệt lại nhiều lần các trạng thái ban đầu.
+**Cơ chế hoạt động:**
 
-**Áp dụng:** IDS phù hợp cho bài toán có không gian tìm kiếm lớn, nhưng cần cân bằng giữa tốc độ và độ chính xác.
+1. Hoạt động giống DFS nhưng với giới hạn độ sâu L
+2. Khi đạt độ sâu L, dừng và quay lui
+3. Thử các nhánh khác cho đến khi tìm được nghiệm hoặc duyệt hết
+
+**Ưu điểm:**
+
+- Tránh việc đi sâu vô hạn trong không gian tìm kiếm
+- Tiết kiệm bộ nhớ như DFS
+- Phù hợp khi biết trước giới hạn độ sâu nghiệm
+
+**Nhược điểm:**
+
+- Không hoàn thiện: nếu giới hạn nhỏ hơn độ sâu nghiệm, sẽ không tìm thấy
+- Khó xác định giới hạn độ sâu phù hợp
+
+**Độ phức tạp:**
+
+- Thời gian: O(b^l) với l là giới hạn độ sâu
+- Không gian: O(bl)
 
 ---
 
-### 2.5 UCS (Uniform Cost Search)
+#### 2.1.4. IDS (Iterative Deepening Search)
 
-**Mô tả:** Luôn mở rộng trạng thái có chi phí thấp nhất (ví dụ: số lượng xung đột giữa các Xe).
+**Mô tả:**  
+IDS kết hợp ưu điểm của BFS và DFS bằng cách thực hiện DLS nhiều lần với giới hạn độ sâu tăng dần (0, 1, 2, ...).
 
 <p align="center">
-  <img src="gif/ucs.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/ids.gif" alt="IDS demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Tìm được nghiệm có chi phí tối ưu.  
-**Nhược điểm:** Cần xác định đúng hàm chi phí, tốn thời gian nếu không gian trạng thái lớn.
+**Cơ chế hoạt động:**
 
-**Áp dụng:** Với 8 Xe, UCS mở rộng các bàn cờ ít xung đột hơn trước.
+1. Chạy DLS với giới hạn độ sâu = 0
+2. Nếu không tìm được nghiệm, tăng giới hạn lên 1 và chạy lại
+3. Tiếp tục tăng dần cho đến khi tìm được nghiệm
+
+**Ưu điểm:**
+
+- Hoàn thiện như BFS
+- Tiết kiệm bộ nhớ như DFS
+- Tìm được nghiệm tối ưu
+
+**Nhược điểm:**
+
+- Phải duyệt lại nhiều lần các trạng thái ở tầng nông
+- Chậm hơn BFS về mặt thời gian thực
+
+**Độ phức tạp:**
+
+- Thời gian: O(b^d)
+- Không gian: O(bd)
 
 ---
 
-### Kết luận nhóm Uninformed Search
+#### 2.1.5. UCS (Uniform Cost Search)
 
-Nhóm thuật toán này phù hợp với việc **tìm lời giải chính xác**, đặc biệt trong bài toán có không gian nhỏ. Tuy nhiên, khi bàn cờ mở rộng (nhiều Xe hơn), chi phí thời gian và bộ nhớ trở nên lớn. BFS và IDS cho nghiệm tối ưu, còn DFS và DLS nhanh hơn nhưng có thể bỏ sót nghiệm.
-
----
-
-## 3. Nhóm thuật toán Tìm kiếm Có Thông tin (Informed Search)
-
-### Tổng quan
-
-Các thuật toán này sử dụng hàm heuristic (ước lượng) để đánh giá mức độ “tốt” của trạng thái, giúp định hướng tìm kiếm hiệu quả hơn.
-
-### 3.1 Greedy Best-First Search
-
-**Mô tả:** Mở rộng trạng thái có giá trị heuristic nhỏ nhất, thường là số lượng Xe đang xung đột.
+**Mô tả:**  
+UCS luôn mở rộng trạng thái có chi phí tích lũy thấp nhất. Trong bài toán 8 Xe, chi phí có thể là số lượng xung đột hoặc số bước đã thực hiện.
 
 <p align="center">
-  <img src="gif/greedy.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/ucs.gif" alt="UCS demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Chạy nhanh, dễ cài đặt.  
-**Nhược điểm:** Dễ mắc kẹt ở nghiệm cục bộ, không đảm bảo tối ưu.
+**Cơ chế hoạt động:**
 
-**Áp dụng:** Greedy ưu tiên những bàn cờ có ít xung đột, giúp đạt kết quả nhanh trong nhiều trường hợp.
+1. Sử dụng priority queue để lưu các trạng thái
+2. Luôn chọn trạng thái có chi phí g(n) nhỏ nhất để mở rộng
+3. Cập nhật chi phí khi tìm được đường đi rẻ hơn
+4. Dừng khi tìm được trạng thái đích
 
----
+**Ưu điểm:**
 
-### 3.2 A\* (A-Star Search)
+- Đảm bảo tìm được nghiệm có chi phí tối ưu
+- Hoàn thiện và tối ưu
 
-**Mô tả:** Kết hợp chi phí thực tế và ước lượng: f(n) = g(n) + h(n), trong đó:
+**Nhược điểm:**
 
-- g(n): số Xe đã đặt hoặc chi phí thực tế.
-- h(n): số xung đột còn lại cần giảm.  
+- Tốn thời gian nếu không gian trạng thái lớn
+- Cần định nghĩa hàm chi phí phù hợp
+- Tốn bộ nhớ để lưu trữ priority queue
 
- **Ưu điểm:** Tìm được nghiệm tối ưu nếu hàm heuristic là khả chấp (admissible).  
- **Nhược điểm:** Cần tính toán nhiều hơn, có thể tốn bộ nhớ.
-<p align="center">
-  <img src="gif/astar.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
-</p>
-**Áp dụng:** Trong bài toán 8 Xe, A\* định hướng tìm kiếm về các bàn cờ ít xung đột hơn, tránh việc duyệt mù như BFS.
+**Độ phức tạp:**
 
----
-
-### Kết luận nhóm Informed Search
-
-Các thuật toán có thông tin mang lại **tốc độ và hiệu quả cao hơn**. A\* thường cho kết quả tốt nhất, trong khi Greedy thích hợp cho các trường hợp cần tốc độ cao mà không yêu cầu tối ưu tuyệt đối.
+- Thời gian: O(b^(C*/ε)) với C* là chi phí nghiệm tối ưu
+- Không gian: O(b^(C\*/ε))
 
 ---
 
-## 4. Nhóm thuật toán Tối ưu Cục bộ (Local Search)
+### 2.2. Nhóm thuật toán Tìm kiếm Có Thông tin (Informed Search)
 
-### Tổng quan
+Các thuật toán tìm kiếm có thông tin sử dụng hàm heuristic để ước lượng mức độ "gần" với trạng thái đích, giúp định hướng tìm kiếm hiệu quả hơn.
 
-Các thuật toán tối ưu cục bộ không tìm kiếm toàn bộ không gian mà chỉ tập trung cải thiện dần lời giải hiện tại. Chúng hữu ích trong không gian tìm kiếm rất lớn.
+#### 2.2.1. Greedy Best-First Search
 
-### 4.1 Hill Climbing
-
-**Mô tả:** Bắt đầu từ một bàn cờ ngẫu nhiên, di chuyển từng Xe để giảm số xung đột.
+**Mô tả:**  
+Greedy Best-First Search luôn chọn trạng thái có giá trị heuristic h(n) nhỏ nhất để mở rộng. Trong bài toán 8 Xe, h(n) thường là số cặp Xe đang xung đột.
 
 <p align="center">
-  <img src="gif/hill.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/greedy.gif" alt="Greedy demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Dễ cài đặt, tốc độ nhanh.  
-**Nhược điểm:** Dễ mắc kẹt tại nghiệm cục bộ, không tìm được lời giải tốt hơn.
+**Hàm Heuristic:**
+
+- h(n) = số lượng cặp Xe xung đột với nhau
+- h(n) = số hàng/cột còn thiếu Xe
+
+**Ưu điểm:**
+
+- Chạy nhanh, thường tìm được nghiệm trong thời gian ngắn
+- Dễ cài đặt và hiểu
+- Tiết kiệm bộ nhớ hơn BFS
+
+**Nhược điểm:**
+
+- Không đảm bảo nghiệm tối ưu
+- Dễ rơi vào cực trị cục bộ
+- Phụ thuộc nhiều vào chất lượng hàm heuristic
 
 ---
 
-### 4.2 Simulated Annealing
+#### 2.2.2. A\* (A-Star Search)
 
-**Mô tả:** Giống Hill Climbing nhưng đôi khi chấp nhận bước đi “xấu hơn” với xác suất nhất định để thoát khỏi cực trị cục bộ.
+**Mô tả:**  
+A\* kết hợp chi phí thực tế g(n) và ước lượng h(n) thông qua hàm đánh giá f(n) = g(n) + h(n).
 
 <p align="center">
-  <img src="gif/sa.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/astar.gif" alt="A* demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Có thể tìm được nghiệm tốt hơn so với Hill Climbing.  
-**Nhược điểm:** Phụ thuộc nhiều vào tham số nhiệt độ và tốc độ giảm.
+**Hàm đánh giá:**
+
+- g(n) = số Xe đã đặt hoặc chi phí thực tế từ trạng thái ban đầu
+- h(n) = số xung đột còn lại (heuristic khả chấp)
+- f(n) = g(n) + h(n)
+
+**Ưu điểm:**
+
+- Đảm bảo tìm được nghiệm tối ưu nếu h(n) là heuristic khả chấp
+- Hiệu quả hơn UCS nhờ có định hướng
+- Cân bằng giữa tốc độ và độ chính xác
+
+**Nhược điểm:**
+
+- Tốn bộ nhớ để lưu trữ các trạng thái
+- Cần thiết kế hàm heuristic tốt
+- Chậm hơn Greedy nhưng đáng tin cậy hơn
 
 ---
 
-### 4.3 Beam Search
+### 2.3. Nhóm thuật toán Tối ưu Cục bộ (Local Search)
 
-**Mô tả:** Giữ lại một số trạng thái tốt nhất (beam width) ở mỗi vòng để mở rộng tiếp.
+Các thuật toán tối ưu cục bộ không tìm kiếm toàn bộ không gian mà chỉ tập trung cải thiện dần lời giải hiện tại từ một trạng thái ngẫu nhiên ban đầu.
+
+#### 2.3.1. Hill Climbing
+
+**Mô tả:**  
+Hill Climbing bắt đầu từ một cấu hình ngẫu nhiên và liên tục di chuyển các quân Xe để giảm số xung đột.
 
 <p align="center">
-  <img src="gif/beam.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/hill.gif" alt="Hill Climbing demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Cân bằng giữa tốc độ và độ bao phủ không gian tìm kiếm.  
-**Nhược điểm:** Có thể bỏ lỡ nghiệm tối ưu nếu beam quá nhỏ.
+**Ưu điểm:**
+
+- Đơn giản, dễ cài đặt
+- Chạy nhanh với không gian tìm kiếm lớn
+- Tiết kiệm bộ nhớ
+
+**Nhược điểm:**
+
+- Dễ rơi vào cực trị cục bộ
+- Không đảm bảo tìm được nghiệm tối ưu toàn cục
 
 ---
 
-### 4.4 Genetic Algorithm
+#### 2.3.2. Simulated Annealing
 
-**Mô tả:** Biểu diễn bàn cờ dưới dạng nhiễm sắc thể, áp dụng phép lai và đột biến để tạo ra thế hệ mới.
+**Mô tả:**  
+Simulated Annealing cải tiến Hill Climbing bằng cách đôi khi chấp nhận các bước đi "xấu hơn" với xác suất giảm dần theo thời gian (nhiệt độ).
 
 <p align="center">
-  <img src="gif/gene.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/sa.gif" alt="Simulated Annealing demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Mạnh mẽ, có thể tìm nghiệm tốt trong không gian rất lớn.  
-**Nhược điểm:** Cần nhiều tham số và có thể mất thời gian huấn luyện.
+**Ưu điểm:**
+
+- Có khả năng thoát khỏi cực trị cục bộ
+- Tìm được nghiệm tốt hơn Hill Climbing
+
+**Nhược điểm:**
+
+- Phụ thuộc vào tham số nhiệt độ và tốc độ giảm nhiệt
+- Khó điều chỉnh tham số
 
 ---
 
-### Kết luận nhóm Local Search
+#### 2.3.3. Beam Search
 
-Nhóm này phù hợp khi không gian tìm kiếm quá lớn để duyệt toàn bộ. Hill Climbing và Simulated Annealing dễ áp dụng, còn Genetic Algorithm mạnh hơn nhưng phức tạp hơn.
-
----
-
-## 5. Nhóm thuật toán Môi trường Phức tạp (Complex Environment)
-
-### Tổng quan
-
-Nhóm này mô phỏng môi trường không chắc chắn hoặc có nhiều khả năng xảy ra, đòi hỏi mô hình hóa trạng thái niềm tin và logic.
-
-### 5.1 AND-OR Search
-
-**Mô tả:** Mô phỏng quá trình ra quyết định khi có nhiều kết quả có thể xảy ra.
+**Mô tả:**  
+Beam Search duy trì một số lượng giới hạn (beam width) các trạng thái tốt nhất ở mỗi bước để mở rộng tiếp.
 
 <p align="center">
-  <img src="gif/and_or.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/beam.gif" alt="Beam Search demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Áp dụng:** Trong bài toán 8 Xe, có thể dùng khi có ràng buộc phụ thuộc giữa các vị trí Xe.
+**Ưu điểm:**
+
+- Cân bằng giữa tốc độ và độ bao phủ
+- Linh hoạt thông qua tham số beam width
+
+**Nhược điểm:**
+
+- Có thể bỏ lỡ nghiệm tối ưu nếu beam width quá nhỏ
 
 ---
 
-### 5.2 Partially Observable Search
+#### 2.3.4. Genetic Algorithm
 
-**Mô tả:** Áp dụng khi bàn cờ không được quan sát hoàn toàn.
+**Mô tả:**  
+Genetic Algorithm mô phỏng quá trình tiến hóa tự nhiên với các thao tác: chọn lọc, lai ghép và đột biến.
 
 <p align="center">
-  <img src="gif/partially_observable.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/gene.gif" alt="Genetic Algorithm demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Áp dụng:** Khi một số vị trí bị ẩn hoặc không thể biết trước, thuật toán phải dự đoán vị trí hợp lệ dựa trên thông tin quan sát được.
+**Ưu điểm:**
+
+- Mạnh mẽ với không gian tìm kiếm phức tạp
+- Có thể tìm nghiệm tốt trong không gian rất lớn
+
+**Nhược điểm:**
+
+- Cần nhiều tham số (kích thước quần thể, xác suất lai/đột biến)
+- Mất thời gian huấn luyện
 
 ---
 
-### 5.3 Belief-State Search
+### 2.4. Nhóm thuật toán Môi trường Phức tạp (Complex Environment)
 
-**Mô tả:** Mỗi trạng thái là một tập hợp các khả năng có thể xảy ra.
+#### 2.4.1. AND-OR Search
 
 <p align="center">
-  <img src="gif/belief.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/and_or.gif" alt="AND-OR Search demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Áp dụng:** Hữu ích khi trò chơi có yếu tố không chắc chắn hoặc thiếu thông tin rõ ràng.
+Mô phỏng quá trình ra quyết định khi có nhiều kết quả có thể xảy ra hoặc có ràng buộc phụ thuộc giữa các vị trí Xe.
 
 ---
 
-### Kết luận nhóm Complex Environment
-
-Nhóm này mở rộng mô hình bài toán 8 Xe sang các tình huống không chắc chắn. Tuy chưa phổ biến cho bài toán cơ bản, nhưng hữu ích nếu bài toán mở rộng (ví dụ: Xe ẩn, cấm ô).
-
----
-
-## 6. Nhóm thuật toán Ràng buộc (CSP - Constraint Satisfaction Problem)
-
-### Tổng quan
-
-Các thuật toán CSP dựa trên ràng buộc giữa các biến và giá trị. Với bài toán 8 Xe, mỗi hàng là một biến, giá trị là cột đặt Xe.
-
-### 6.1 Backtracking
-
-**Mô tả:** Đặt Xe từng bước, nếu xảy ra xung đột thì quay lui.
+#### 2.4.2. Partially Observable Search
 
 <p align="center">
-  <img src="gif/backtrack.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/partially_observable.gif" alt="Partially Observable demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Đơn giản, hiệu quả với ràng buộc mạnh.  
-**Nhược điểm:** Có thể lặp lại nhiều lần, tốn thời gian với không gian lớn.
+Áp dụng khi một số vị trí trên bàn cờ bị ẩn hoặc không thể quan sát được, thuật toán phải dự đoán dựa trên thông tin có sẵn.
 
 ---
 
-### 6.2 Forward Checking
-
-**Mô tả:** Khi đặt một Xe, loại bỏ các vị trí không hợp lệ của các Xe chưa đặt.
+#### 2.4.3. Belief-State Search
 
 <p align="center">
-  <img src="gif/forward.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/belief.gif" alt="Belief-State demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Giảm đáng kể số lần quay lui.  
-**Nhược điểm:** Cần quản lý thêm danh sách miền giá trị hợp lệ.
+Mỗi trạng thái là một tập hợp các khả năng có thể xảy ra, hữu ích khi có yếu tố không chắc chắn.
 
 ---
 
-### 6.3 AC-3 (Arc Consistency)
+### 2.5. Nhóm thuật toán Ràng buộc (CSP - Constraint Satisfaction Problem)
 
-**Mô tả:** Duy trì tính nhất quán trên các cung (Xi, Xj).
+#### 2.5.1. Backtracking
+
+**Mô tả:**  
+Backtracking đặt Xe từng bước một, nếu phát hiện xung đột thì quay lui và thử lựa chọn khác.
 
 <p align="center">
-  <img src="gif/ac3.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/backtrack.gif" alt="Backtracking demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Giúp rút gọn miền giá trị, giảm thời gian tìm kiếm.  
-**Nhược điểm:** Phức tạp hơn về mặt triển khai.
+**Ưu điểm:**
+
+- Đơn giản, dễ hiểu
+- Hiệu quả với các ràng buộc mạnh
+
+**Nhược điểm:**
+
+- Có thể tốn thời gian với không gian lớn
+- Lặp lại nhiều phép thử
 
 ---
 
-### Kết luận nhóm CSP
+#### 2.5.2. Forward Checking
 
-Các thuật toán CSP là **phù hợp nhất** cho bài toán 8 Xe vì chúng mô hình hóa bài toán bằng ràng buộc “không cùng hàng hoặc cột”. AC-3 và Forward Checking giúp tăng tốc độ đáng kể so với Backtracking truyền thống.
-
----
-
-## 7. Nhóm thuật toán Đối kháng (Adversarial Search)
-
-### Tổng quan
-
-Nhóm này mô phỏng các trò chơi có hai người chơi đối lập, mỗi bên cố gắng tối ưu chiến lược của mình.
-
-### 7.1 Minimax
-
-**Mô tả:** Mỗi lượt đi được đánh giá dựa trên việc tối thiểu hóa thiệt hại trong trường hợp xấu nhất.
+**Mô tả:**  
+Khi đặt một Xe, Forward Checking loại bỏ ngay các vị trí không hợp lệ của các Xe chưa đặt.
 
 <p align="center">
-  <img src="gif/minimax.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/forward.gif" alt="Forward Checking demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Áp dụng:** Giả sử người chơi A đặt Xe, người chơi B thêm chướng ngại; Minimax giúp chọn vị trí đặt Xe tối ưu.  
-**Ưu điểm:** Đảm bảo nước đi an toàn nhất.  
-**Nhược điểm:** Tốn thời gian nếu không cắt tỉa.
+**Ưu điểm:**
+
+- Giảm đáng kể số lần quay lui
+- Phát hiện sớm các ràng buộc vi phạm
+
+**Nhược điểm:**
+
+- Cần quản lý miền giá trị của các biến
 
 ---
 
-### 7.2 Alpha-Beta Pruning
+#### 2.5.3. AC-3 (Arc Consistency)
 
-**Mô tả:** Cải tiến Minimax bằng cách loại bỏ các nhánh không cần thiết.
+**Mô tả:**  
+AC-3 duy trì tính nhất quán trên các cung (Xi, Xj), loại bỏ các giá trị không nhất quán trước khi tìm kiếm.
 
 <p align="center">
-  <img src="gif/alpha_beta.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
+  <img src="gif/ac3.gif" alt="AC-3 demo" width="900" style="border-radius:10px;"/>
 </p>
 
-**Ưu điểm:** Giảm thời gian tính toán đáng kể.  
-**Nhược điểm:** Hiệu quả phụ thuộc vào thứ tự duyệt các trạng thái.
+**Ưu điểm:**
+
+- Rút gọn miền giá trị hiệu quả
+- Giảm thời gian tìm kiếm tổng thể
+
+**Nhược điểm:**
+
+- Phức tạp hơn về mặt triển khai
 
 ---
 
-### Kết luận nhóm Adversarial Search
+### 2.6. Nhóm thuật toán Đối kháng (Adversarial Search)
 
-Nhóm này phù hợp nếu bài toán được mở rộng thành trò chơi hai người, có yếu tố cạnh tranh hoặc ngẫu nhiên. Alpha-Beta là cải tiến quan trọng giúp Minimax hoạt động hiệu quả hơn.
+#### 2.6.1. Minimax
+
+**Mô tả:**  
+Minimax đánh giá các nước đi dựa trên việc tối thiểu hóa thiệt hại trong trường hợp xấu nhất, áp dụng cho trò chơi hai người.
+
+<p align="center">
+  <img src="gif/minimax.gif" alt="Minimax demo" width="900" style="border-radius:10px;"/>
+</p>
+
+**Ưu điểm:**
+
+- Đảm bảo nước đi an toàn nhất
+- Phù hợp cho trò chơi đối kháng
+
+**Nhược điểm:**
+
+- Tốn thời gian nếu không cắt tỉa
 
 ---
+
+#### 2.6.2. Alpha-Beta Pruning
+
+**Mô tả:**  
+Alpha-Beta Pruning cải tiến Minimax bằng cách loại bỏ các nhánh không cần thiết trong cây trò chơi.
+
+<p align="center">
+  <img src="gif/alpha_beta.gif" alt="Alpha-Beta demo" width="900" style="border-radius:10px;"/>
+</p>
+
+**Ưu điểm:**
+
+- Giảm đáng kể thời gian tính toán
+- Cho kết quả giống Minimax nhưng nhanh hơn
+
+**Nhược điểm:**
+
+- Hiệu quả phụ thuộc vào thứ tự duyệt
+
+---
+
+## 3. Kết quả và Đánh giá
+
+**Nhóm Uninformed Search:**
+
+- BFS và IDS đảm bảo nghiệm tối ưu nhưng tốn tài nguyên
+- DFS và DLS nhanh nhưng không đảm bảo tối ưu
+- UCS tốt khi có hàm chi phí rõ ràng
+
+**Nhóm Informed Search:**
+
+- A\* là lựa chọn tốt nhất cho bài toán này: cân bằng giữa tốc độ và độ chính xác
+- Greedy nhanh nhưng có thể cho kết quả không tối ưu
+
+**Nhóm Local Search:**
+
+- Hill Climbing và Simulated Annealing rất nhanh với không gian lớn
+- Genetic Algorithm mạnh mẽ nhưng cần điều chỉnh tham số
+
+**Nhóm CSP:**
+
+- Forward Checking và AC-3 là hi
+
+## 4. Tài liệu tham khảo
+
+- Russell, S., & Norvig, P. (2021). Artificial Intelligence: A Modern Approach (4th ed.). Pearson.
