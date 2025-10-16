@@ -24,6 +24,7 @@ Các thuật toán tìm kiếm mù không sử dụng thông tin bổ sung về 
 <p align="center">
   <img src="gif/bfs.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>  
+
 **Ưu điểm:** Luôn tìm được nghiệm tối ưu (nếu có) với số bước ít nhất.  
 **Nhược điểm:** Tốn rất nhiều bộ nhớ do phải lưu toàn bộ trạng thái cùng mức.
 
@@ -38,6 +39,7 @@ Các thuật toán tìm kiếm mù không sử dụng thông tin bổ sung về 
 <p align="center">
   <img src="gif/dfs.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Tiết kiệm bộ nhớ, dễ cài đặt.  
 **Nhược điểm:** Có thể đi sai hướng và mắc kẹt trong nhánh không có nghiệm.
 
@@ -52,6 +54,7 @@ Các thuật toán tìm kiếm mù không sử dụng thông tin bổ sung về 
 <p align="center">
   <img src="gif/dls.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Tránh việc đi sâu vô hạn trong không gian tìm kiếm.  
 **Nhược điểm:** Nếu giới hạn độ sâu nhỏ hơn nghiệm, thuật toán sẽ không tìm thấy lời giải.
 
@@ -66,6 +69,7 @@ Các thuật toán tìm kiếm mù không sử dụng thông tin bổ sung về 
 <p align="center">
   <img src="gif/ids.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Đảm bảo tìm được nghiệm tối ưu mà không tốn nhiều bộ nhớ như BFS.  
 **Nhược điểm:** Phải duyệt lại nhiều lần các trạng thái ban đầu.
 
@@ -80,6 +84,7 @@ Các thuật toán tìm kiếm mù không sử dụng thông tin bổ sung về 
 <p align="center">
   <img src="gif/ucs.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Tìm được nghiệm có chi phí tối ưu.  
 **Nhược điểm:** Cần xác định đúng hàm chi phí, tốn thời gian nếu không gian trạng thái lớn.
 
@@ -106,6 +111,7 @@ Các thuật toán này sử dụng hàm heuristic (ước lượng) để đán
 <p align="center">
   <img src="gif/greedy.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Chạy nhanh, dễ cài đặt.  
 **Nhược điểm:** Dễ mắc kẹt ở nghiệm cục bộ, không đảm bảo tối ưu.
 
@@ -119,6 +125,7 @@ Các thuật toán này sử dụng hàm heuristic (ước lượng) để đán
 
 - g(n): số Xe đã đặt hoặc chi phí thực tế.
 - h(n): số xung đột còn lại cần giảm.  
+
  **Ưu điểm:** Tìm được nghiệm tối ưu nếu hàm heuristic là khả chấp (admissible).  
  **Nhược điểm:** Cần tính toán nhiều hơn, có thể tốn bộ nhớ.
 <p align="center">
@@ -147,6 +154,7 @@ Các thuật toán tối ưu cục bộ không tìm kiếm toàn bộ không gia
 <p align="center">
   <img src="gif/hill.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Dễ cài đặt, tốc độ nhanh.  
 **Nhược điểm:** Dễ mắc kẹt tại nghiệm cục bộ, không tìm được lời giải tốt hơn.
 
@@ -159,6 +167,7 @@ Các thuật toán tối ưu cục bộ không tìm kiếm toàn bộ không gia
 <p align="center">
   <img src="gif/sa.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Có thể tìm được nghiệm tốt hơn so với Hill Climbing.  
 **Nhược điểm:** Phụ thuộc nhiều vào tham số nhiệt độ và tốc độ giảm.
 
@@ -171,6 +180,7 @@ Các thuật toán tối ưu cục bộ không tìm kiếm toàn bộ không gia
 <p align="center">
   <img src="gif/beam.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Cân bằng giữa tốc độ và độ bao phủ không gian tìm kiếm.  
 **Nhược điểm:** Có thể bỏ lỡ nghiệm tối ưu nếu beam quá nhỏ.
 
@@ -183,6 +193,7 @@ Các thuật toán tối ưu cục bộ không tìm kiếm toàn bộ không gia
 <p align="center">
   <img src="gif/gene.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Mạnh mẽ, có thể tìm nghiệm tốt trong không gian rất lớn.  
 **Nhược điểm:** Cần nhiều tham số và có thể mất thời gian huấn luyện.
 
@@ -207,6 +218,7 @@ Nhóm này mô phỏng môi trường không chắc chắn hoặc có nhiều kh
 <p align="center">
   <img src="gif/and_or.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Áp dụng:** Trong bài toán 8 Xe, có thể dùng khi có ràng buộc phụ thuộc giữa các vị trí Xe.
 
 ---
@@ -218,6 +230,7 @@ Nhóm này mô phỏng môi trường không chắc chắn hoặc có nhiều kh
 <p align="center">
   <img src="gif/partially_observable.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Áp dụng:** Khi một số vị trí bị ẩn hoặc không thể biết trước, thuật toán phải dự đoán vị trí hợp lệ dựa trên thông tin quan sát được.
 
 ---
@@ -229,6 +242,7 @@ Nhóm này mô phỏng môi trường không chắc chắn hoặc có nhiều kh
 <p align="center">
   <img src="gif/belief.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Áp dụng:** Hữu ích khi trò chơi có yếu tố không chắc chắn hoặc thiếu thông tin rõ ràng.
 
 ---
@@ -252,6 +266,7 @@ Các thuật toán CSP dựa trên ràng buộc giữa các biến và giá tr�
 <p align="center">
   <img src="gif/backtrack.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Đơn giản, hiệu quả với ràng buộc mạnh.  
 **Nhược điểm:** Có thể lặp lại nhiều lần, tốn thời gian với không gian lớn.
 
@@ -264,6 +279,7 @@ Các thuật toán CSP dựa trên ràng buộc giữa các biến và giá tr�
 <p align="center">
   <img src="gif/forward.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Giảm đáng kể số lần quay lui.  
 **Nhược điểm:** Cần quản lý thêm danh sách miền giá trị hợp lệ.
 
@@ -276,6 +292,7 @@ Các thuật toán CSP dựa trên ràng buộc giữa các biến và giá tr�
 <p align="center">
   <img src="gif/ac3.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Giúp rút gọn miền giá trị, giảm thời gian tìm kiếm.  
 **Nhược điểm:** Phức tạp hơn về mặt triển khai.
 
@@ -300,6 +317,7 @@ Nhóm này mô phỏng các trò chơi có hai người chơi đối lập, mỗ
 <p align="center">
   <img src="gif/minimax.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Áp dụng:** Giả sử người chơi A đặt Xe, người chơi B thêm chướng ngại; Minimax giúp chọn vị trí đặt Xe tối ưu.  
 **Ưu điểm:** Đảm bảo nước đi an toàn nhất.  
 **Nhược điểm:** Tốn thời gian nếu không cắt tỉa.
@@ -313,6 +331,7 @@ Nhóm này mô phỏng các trò chơi có hai người chơi đối lập, mỗ
 <p align="center">
   <img src="gif/alpha_beta.gif" alt="BFS demo" width="900" style="border-radius:10px;"/>
 </p>
+
 **Ưu điểm:** Giảm thời gian tính toán đáng kể.  
 **Nhược điểm:** Hiệu quả phụ thuộc vào thứ tự duyệt các trạng thái.
 
@@ -323,14 +342,3 @@ Nhóm này mô phỏng các trò chơi có hai người chơi đối lập, mỗ
 Nhóm này phù hợp nếu bài toán được mở rộng thành trò chơi hai người, có yếu tố cạnh tranh hoặc ngẫu nhiên. Alpha-Beta là cải tiến quan trọng giúp Minimax hoạt động hiệu quả hơn.
 
 ---
-
-## 8. Tổng kết chung
-
-- **Uninformed Search:** Tìm kiếm toàn diện, chính xác nhưng tốn thời gian và bộ nhớ.
-- **Informed Search:** Có định hướng, nhanh hơn và hiệu quả hơn, trong đó A\* nổi bật nhất.
-- **Local Search:** Dễ cài đặt, thích hợp cho không gian lớn, nhưng có thể dừng ở nghiệm cục bộ.
-- **Complex Environment:** Xử lý môi trường không chắc chắn, phù hợp cho các mở rộng bài toán.
-- **CSP:** Phù hợp nhất với bài toán đặt 8 Xe truyền thống nhờ mô hình ràng buộc rõ ràng.
-- **Adversarial Search:** Thích hợp cho trò chơi hai người, có yếu tố đối kháng.
-
-Tùy vào mục tiêu (tối ưu, tốc độ, hay mô phỏng thông minh), mỗi nhóm thuật toán có thể được lựa chọn và áp dụng phù hợp cho bài toán đặt quân Xe.
