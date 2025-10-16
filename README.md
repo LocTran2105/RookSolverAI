@@ -405,6 +405,16 @@ Genetic Algorithm mô phỏng quá trình tiến hóa tự nhiên với các tha
 
 Mô phỏng quá trình ra quyết định khi có nhiều kết quả có thể xảy ra hoặc có ràng buộc phụ thuộc giữa các vị trí Xe.
 
+**Ưu điểm:**
+
+- Xử lý tốt các bài toán có nhiều nhánh quyết định phụ thuộc lẫn nhau
+- Phù hợp khi cần mô phỏng nhiều kịch bản có thể xảy ra đồng thời
+
+**Nhược điểm:**
+
+- Độ phức tạp tính toán cao khi số lượng nhánh tăng
+- Cần nhiều bộ nhớ để lưu trữ các nhánh AND và OR
+
 ---
 
 #### 2.4.2. Partially Observable Search
@@ -414,6 +424,17 @@ Mô phỏng quá trình ra quyết định khi có nhiều kết quả có thể
 </p>
 
 Áp dụng khi một số vị trí trên bàn cờ bị ẩn hoặc không thể quan sát được, thuật toán phải dự đoán dựa trên thông tin có sẵn.
+
+**Ưu điẻm:**
+
+- Phản ánh đúng thực tế khi không có đầy đủ thông tin
+- Có khả năng đưa ra quyết định trong điều kiện bất định
+
+**Nhược điểm:**
+
+- Độ chính xác phụ thuộc vào chất lượng của dự đoán
+- Tốn nhiều thời gian để xem xét các khả năng tiềm ẩn
+- Có thể cho kết quả không tối ưu do thiếu thông tin đầy đủ
 
 ---
 
@@ -542,7 +563,7 @@ Alpha-Beta Pruning cải tiến Minimax bằng cách loại bỏ các nhánh kh�
 
 **Nhóm Informed Search:**
 
-- A\* là lựa chọn tốt nhất cho bài toán này: cân bằng giữa tốc độ và độ chính xác
+- A* là lựa chọn tốt nhất cho bài toán này: cân bằng giữa tốc độ và độ chính xác
 - Greedy nhanh nhưng có thể cho kết quả không tối ưu
 
 **Nhóm Local Search:**
@@ -552,8 +573,13 @@ Alpha-Beta Pruning cải tiến Minimax bằng cách loại bỏ các nhánh kh�
 
 **Nhóm CSP:**
 
-- Forward Checking và AC-3 là hi
+- Forward Checking và AC-3 hiệu quả trong việc phát hiện sớm các xung đột
+- Backtracking đơn giản nhưng có thể tốn thời gian với bài toán lớn
 
+**Nhóm Adversarial:**
+
+- Minimax đảm bảo quyết định tối ưu trong trò chơi đối kháng
+- Alpha-Beta Pruning giảm đáng kể số lượng nút cần duyệt so với Minimax thuần túy
 ## 4. Tài liệu tham khảo
 
 - Russell, S., & Norvig, P. (2021). Artificial Intelligence: A Modern Approach (4th ed.). Pearson.
